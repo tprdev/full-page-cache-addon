@@ -1,0 +1,125 @@
+[
+    {
+        "name": "ride/lib-common",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/all-ride/ride-lib-common.git",
+            "reference": "d2aa796fff1cf699c4995de564bc47edeb9d5fb0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/all-ride/ride-lib-common/zipball/d2aa796fff1cf699c4995de564bc47edeb9d5fb0",
+            "reference": "d2aa796fff1cf699c4995de564bc47edeb9d5fb0",
+            "shasum": ""
+        },
+        "time": "2015-09-10 10:06:54",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ride\\library\\": [
+                    "src/",
+                    "test/src/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joris Vandeweerd",
+                "email": "joris@statik.be"
+            }
+        ],
+        "description": "Shared classes of the Ride framework"
+    },
+    {
+        "name": "ride/lib-log",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/all-ride/ride-lib-log.git",
+            "reference": "1c418d9d11f61f494e6adc6269a25ca20fc2c720"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/all-ride/ride-lib-log/zipball/1c418d9d11f61f494e6adc6269a25ca20fc2c720",
+            "reference": "1c418d9d11f61f494e6adc6269a25ca20fc2c720",
+            "shasum": ""
+        },
+        "require": {
+            "ride/lib-common": ">=0.5.0"
+        },
+        "time": "2015-09-09 14:09:06",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ride\\library\\decorator\\": [
+                    "src/",
+                    "test/src/"
+                ],
+                "ride\\library\\log\\": [
+                    "src/",
+                    "test/src/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joris Vandeweerd",
+                "email": "joris@statik.be"
+            }
+        ],
+        "description": "Log library of the Ride framework"
+    },
+    {
+        "name": "ride/lib-varnish",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/all-ride/ride-lib-varnish.git",
+            "reference": "8e43c9dbef806c5cee9d159add4c77e0cddffe6e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/all-ride/ride-lib-varnish/zipball/8e43c9dbef806c5cee9d159add4c77e0cddffe6e",
+            "reference": "8e43c9dbef806c5cee9d159add4c77e0cddffe6e",
+            "shasum": ""
+        },
+        "require": {
+            "ride/lib-log": ">=0.3.0"
+        },
+        "time": "2015-09-09 14:35:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ride\\library\\varnish\\": [
+                    "src/"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Joris Vandeweerd",
+                "email": "joris@statik.be"
+            }
+        ],
+        "description": "Varnish library of the Ride framework."
+    }
+]

@@ -1,0 +1,1 @@
+# CS-Cart full-page caching add-on

@@ -1,0 +1,21 @@
+{
+    "name": "ride/lib-log",
+    "description": "Log library of the Ride framework",
+    "license": "MIT",
+    "version": "0.3.2",
+    "authors": [
+        {
+            "name": "Joris Vandeweerd",
+            "email": "joris@statik.be"
+        }
+    ],
+    "require": {
+        "ride/lib-common": ">=0.5.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "ride\\library\\decorator\\": ["src/", "test/src/"],
+            "ride\\library\\log\\": ["src/", "test/src/"]
+        }
+    }
+}

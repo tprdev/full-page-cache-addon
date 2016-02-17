@@ -1,0 +1,14 @@
+{
+    "name": "cscart/addon-fullpage-cache",
+    "require": {
+        "ride/lib-varnish": "dev-master"
+    },
+    "license": "Commercial",
+    "authors": [
+        {
+            "name": "Alexander Bolshakov",
+            "email": "abolshakov@cs-cart.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
