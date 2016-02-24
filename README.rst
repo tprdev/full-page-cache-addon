@@ -1,9 +1,9 @@
-**********************************
-Full-Page Cache Add-on for CS-Cart
-**********************************
+**************************************
+Full-Page Cache Add-on for CS-Cart 4.3
+**************************************
 
 .. contents::
-:local:
+    :local:
     :depth: 4
     :backlinks: none
 
