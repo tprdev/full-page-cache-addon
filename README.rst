@@ -1,11 +1,11 @@
-***************
-Full-Page Cache
-***************
+**********************************
+Full-Page Cache Add-on for CS-Cart
+**********************************
 
 .. contents::
 :local:
     :depth: 4
-        :backlinks: none
+    :backlinks: none
 
 =======================
 Configuring Environment
@@ -14,7 +14,7 @@ Configuring Environment
 For full-page caching to work, configure the environment accordingly. See how the server components work in the picture below:
 
 .. image:: http://i.imgur.com/Bf2MnyW.png
-:align: center
+    :align: center
     :alt: Varnish serves as a reverse proxy between clients and the web server.
 
 ------------------------------------
