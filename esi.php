@@ -14,7 +14,14 @@
 
 define('AREA', 'C');
 
-require_once __DIR__ . '/init.php';
+
+// In case of this file is symlinked to the CS-Cart installation directory,
+// there will be no 'init.php' file at the __DIR__ directory.
+$root_dir = __DIR__;
+if (isset($_SERVER['SCRIPT_FILENAME']) && dirname($_SERVER['SCRIPT_FILENAME']) != $root_dir) {
+    $root_dir = dirname($_SERVER['SCRIPT_FILENAME']);
+}
+require_once $root_dir . '/init.php';
 
 use Tygh\BlockManager\Block;
 use Tygh\BlockManager\Grid;
