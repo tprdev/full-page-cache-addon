@@ -12,6 +12,10 @@
  * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
  ****************************************************************************/
 
+use Tygh\BlockManager\Block;
+use Tygh\BlockManager\Grid;
+use Tygh\BlockManager\RenderManager;
+
 define('AREA', 'C');
 
 
@@ -21,17 +25,23 @@ $root_dir = __DIR__;
 if (isset($_SERVER['SCRIPT_FILENAME']) && dirname($_SERVER['SCRIPT_FILENAME']) != $root_dir) {
     $root_dir = dirname($_SERVER['SCRIPT_FILENAME']);
 }
-require_once $root_dir . '/init.php';
-
-use Tygh\BlockManager\Block;
-use Tygh\BlockManager\Grid;
-use Tygh\BlockManager\RenderManager;
 
 
-if (isset($_REQUEST['block_id'], $_REQUEST['snapping_id'], $_REQUEST['lang_code'])) {
-    $lang_code = (string) $_REQUEST['lang_code'];
-    $block_id = (int) $_REQUEST['block_id'];
-    $snapping_id = (int) $_REQUEST['snapping_id'];
+if (isset($_REQUEST['block_id'],
+    $_REQUEST['snapping_id'],
+    $_REQUEST['lang_code'],
+    $_REQUEST['requested_uri']
+)) {
+
+    $block_id = (int)$_REQUEST['block_id'];
+    $snapping_id = (int)$_REQUEST['snapping_id'];
+    $lang_code = $_REQUEST['lang_code'];
+    $requested_uri = rawurldecode($_REQUEST['requested_uri']);
+
+    $_SERVER['QUERY_STRING'] = parse_url($requested_uri, PHP_URL_QUERY);
+    $_SERVER['REQUEST_URI'] = $requested_uri;
+
+    require_once $root_dir . '/init.php';
 
     $block = Block::instance()->getById($block_id, $snapping_id, array(), $lang_code);
     $parent_grid = Grid::getById($block['grid_id'], $lang_code);

@@ -91,8 +91,12 @@ function fn_full_page_cache_render_block_post(
     $addon = Tygh::$app['addons.full_page_cache'];
 
     if ($params['esi_enabled'] && $display_this_block) {
-        $block_content = $addon->renderESIForBlock($block, $block_content, CART_LANGUAGE,
-            Registry::get('config.current_location'), (defined('DEVELOPMENT') && DEVELOPMENT));
+        $block_content = $addon->renderESIForBlock(
+            $block, $block_content, CART_LANGUAGE,
+            Registry::get('config.current_location'),
+            Registry::get('config.current_url'),
+            (defined('DEVELOPMENT') && DEVELOPMENT)
+        );
     }
 }
 

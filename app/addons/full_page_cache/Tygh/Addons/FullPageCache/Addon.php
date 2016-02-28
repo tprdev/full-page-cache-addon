@@ -347,17 +347,20 @@ final class Addon
      * @param string $block_content Rendered HTML contents of the block
      * @param string $lang_code     Code of language in which block is rendered.
      * @param string $root_url      Root URL of the cart installation
+     * @param string $requested_uri The URI of the requested page containing ESI directives.
+     * @param bool   $debug         Whether to add debug HTML-comments above ESI directives.
      *
      * @return string ESI XML tags.
      */
-    public function renderESIForBlock($block, $block_content, $lang_code, $root_url, $debug = false)
+    public function renderESIForBlock($block, $block_content, $lang_code, $root_url, $requested_uri, $debug = false)
     {
         $block_render_url = sprintf(
-            '%s/esi.php?block_id=%u&snapping_id=%u&lang_code=%s',
+            '%s/esi.php?block_id=%u&snapping_id=%u&lang_code=%s&requested_uri=%s',
             rtrim($root_url, '\\/'),
             $block['block_id'],
             $block['snapping_id'],
-            $lang_code
+            $lang_code,
+            rawurlencode($requested_uri)
         );
 
         $return = sprintf('%s<esi:include src="%s" /><esi:remove>%s</esi:remove>',
@@ -423,5 +426,13 @@ final class Addon
         $tags = implode(',', $tags);
 
         return $this->cache_tags_http_header_name . ': ' . $tags;
+    }
+
+    /**
+     * @return bool Whether the current request is an ESI request.
+     */
+    public function isEsiRequest()
+    {
+        return isset($_SERVER['HTTP_X_VARNISH_ESI']) && $_SERVER['HTTP_X_VARNISH_ESI'] == 'true';
     }
 }
