@@ -30,6 +30,12 @@ $schema = array(
     'disable_for_dispatches' => array(
         'checkout.*',
         'orders.*',
+        'wishlist.*',
+        'product_features.add_product',
+        'product_features.clear_list',
+        'product_features.delete_product',
+        'product_features.delete_feature',
+        'product_features.compare',
     ),
 
     // Which file extensions must not be cached at all
