@@ -43,6 +43,6 @@
 
     <files>
         <file>esi.php</file>
-        <file>var/conf/varnish/disabled.vcl</file>
+        <file>var/conf/varnish</file>
     </files>
 </addon>
