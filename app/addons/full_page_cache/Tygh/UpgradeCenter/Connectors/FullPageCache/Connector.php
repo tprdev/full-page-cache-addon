@@ -70,16 +70,14 @@ class Connector extends BaseAddonConnector
 
         $this->addon_id = 'full_page_cache';
 
-        // Initial settings
-        $addon_scheme = SchemesManager::getScheme('sample_addon');
+        $addon_scheme = SchemesManager::getScheme($this->addon_id);
 
         $this->updates_server = Registry::get('config.resources.marketplace_url');
-
         $this->product_name = $addon_scheme->getName();
         $this->product_version = $addon_scheme->getVersion();
         $this->environment_version = PRODUCT_VERSION;
         $this->product_edition = PRODUCT_EDITION;
 
-        $this->license_number = Registry::get('addons.sample_addon.marketplace_license_number');
+        $this->license_number = Registry::get('addons.' . $this->addon_id . '.marketplace_license_number');
     }
 }
