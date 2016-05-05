@@ -64,3 +64,14 @@ msgctxt "SettingsTooltips::full_page_cache::varnish_adm_secret"
 msgid "Enter the contents of the \"secret\" file, which is located at \"/etc/varnish/secret\" by default."
 msgstr "Enter the contents of the \"secret\" file, which is located at \"/etc/varnish/secret\" by default."
 
+msgctxt "SettingsOptions::full_page_cache::common"
+msgid "Common"
+msgstr "Common"
+
+msgctxt "SettingsOptions::full_page_cache::marketplace_license_number"
+msgid "Marketplace license number"
+msgstr "Marketplace license number"
+
+msgctxt "SettingsTooltips::full_page_cache::marketplace_license_number"
+msgid "If you've downloaded this module from the Marketplace, enter the license number to receive upgrades."
+msgstr "If you've downloaded this module from the Marketplace, enter the license number to receive upgrades."

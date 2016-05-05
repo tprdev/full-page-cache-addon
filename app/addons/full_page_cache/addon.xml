@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <addon scheme="3.0">
     <id>full_page_cache</id>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <priority>10000</priority>
     <status>disabled</status>
     <default_language>en</default_language>
@@ -30,6 +30,12 @@
                         <default_value>6082</default_value>
                     </item>
                     <item id="varnish_adm_secret">
+                        <type>input</type>
+                    </item>
+                    <item id="common">
+                        <type>header</type>
+                    </item>
+                    <item id="marketplace_license_number">
                         <type>input</type>
                     </item>
                 </items>
