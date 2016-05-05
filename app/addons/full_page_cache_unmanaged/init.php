@@ -33,6 +33,8 @@ if (AREA == 'C') {
 
         $dispatch = empty($_REQUEST['dispatch']) ? 'index.index' : $_REQUEST['dispatch'];
 
+        // Function used to match the requested dispatch against given dispatch list.
+        // The main need for this is the wildcard ("*") support.
         $dispatch_matches = function ($dispatch, $dispatch_list) {
             $dispatch_parts = explode('.', $dispatch);
 
