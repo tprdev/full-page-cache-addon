@@ -13,7 +13,7 @@ class Connector extends BaseAddonConnector
     /**
      * Put your add-on identifier here
      */
-    const ADDON_IDENTIFIER = 'sample_addon';
+    const ADDON_IDENTIFIER = 'full_page_cache';
 
     /**
      * @var string Version of product addon runs in
