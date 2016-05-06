@@ -6,12 +6,17 @@ use Tygh\Registry;
 use Tygh\UpgradeCenter\Connectors\BaseAddonConnector;
 
 /**
- * Core upgrade connector interface
+ * Marketplace add-on upgrade connector
  */
 class Connector extends BaseAddonConnector
 {
     /**
-     * @var string Version of the product add-on runs in
+     * Put your add-on identifier here
+     */
+    const ADDON_IDENTIFIER = 'sample_addon';
+
+    /**
+     * @var string Version of product addon runs in
      */
     protected $environment_version;
 
@@ -53,7 +58,6 @@ class Connector extends BaseAddonConnector
             ))
         );
         $data = fn_get_contents($package_url);
-
         if (!empty($data)) {
             fn_put_contents($package_path, $data);
             $result = array(true, '');
@@ -64,20 +68,34 @@ class Connector extends BaseAddonConnector
         return $result;
     }
 
+    /**
+     * Gets Marketplace product identifier from addon.xml scheme
+     */
+    public static function getMarketplaceProductId()
+    {
+        $scheme_path = Registry::get('config.dir.addons') . self::ADDON_IDENTIFIER . '/addon.xml';
+        if (file_exists($scheme_path)) {
+            $scheme = @simplexml_load_file($scheme_path);
+            // <marketplace_product_id> is automatically added into addon.xml by Marketplace
+            if (isset($scheme->marketplace_product_id)) {
+                return (int) $scheme->marketplace_product_id;
+            }
+        }
+
+        return 0;
+    }
+
     public function __construct()
     {
         parent::__construct();
-
-        $this->addon_id = 'full_page_cache';
-
-        $addon_scheme = SchemesManager::getScheme($this->addon_id);
-
+        // Initial settings
+        $this->addon_id = self::getMarketplaceProductId();
+        $addon_scheme = SchemesManager::getScheme(self::ADDON_IDENTIFIER);
         $this->updates_server = Registry::get('config.resources.marketplace_url');
         $this->product_name = $addon_scheme->getName();
         $this->product_version = $addon_scheme->getVersion();
         $this->environment_version = PRODUCT_VERSION;
         $this->product_edition = PRODUCT_EDITION;
-
-        $this->license_number = Registry::get('addons.' . $this->addon_id . '.marketplace_license_number');
+        $this->license_number = Registry::get('addons.' . self::ADDON_IDENTIFIER . '.marketplace_license_number');
     }
 }
