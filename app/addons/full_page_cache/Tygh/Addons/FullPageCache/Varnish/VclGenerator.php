@@ -269,10 +269,11 @@ sub vcl_recv {
         return (pass);
     }
 
+    # Modifying the VCL generation to include auth so it works on staging
     # Not cacheable by default
-    if (req.http.Authorization) {
-        return (pass);
-    }
+    #if (req.http.Authorization) {
+    #    return (pass);
+    #}
 
     # Strip hash, server doesn't need it.
     if (req.url ~ "\#") {
