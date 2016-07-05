@@ -40,9 +40,9 @@ $schema = array(
 
     // Which file extensions must not be cached at all
     'disable_for_extensions' => array(
-        'jpg', 'jpeg', 'png', 'gif', 'ico', 'tiff', 'tif', 'bmp', 'ppm', 'pgm', 'xcf', 'psd', 'webp', 'svg',
+        'ico', 'tiff', 'tif', 'bmp', 'ppm', 'pgm', 'xcf', 'psd', 'webp', 'svg',
         'css', 'js',
-        'html', 'txt',
+        'txt',
         'woff', 'eot', 'otf', 'ttf',
         'zip', 'sql', 'tar', 'gz', 'tgz', 'bzip2', 'mp3', 'mp4', 'flv', 'ogg', 'swf',
     ),
