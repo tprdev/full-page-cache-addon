@@ -364,6 +364,10 @@ sub vcl_hash {
         hash_data("has_session");
     }
 
+if (req.http.X-Forwarded-Proto ~ "https") {
+    hash_data(req.http.X-Forwarded-Proto);
+  }
+
     return (lookup);
 }
 
@@ -444,20 +448,20 @@ TPL;
      */
     public function getHttpRequestPathMatchRegexp($path)
     {
-        if (!is_array($path)) {
-            $path = (array) $path;
-        }
+      if (!is_array($path)) {
+        $path = (array) $path;
+      }
 
-        foreach ($path as &$item) {
-            $item = $this->normalizeHttpRequestPath($item);
-            $item = preg_quote($item, '/');
-        }
+      foreach ($path as &$item) {
+        $item = $this->normalizeHttpRequestPath($item);
+        $item = preg_quote($item, '/');
+      }
 
-        $path = implode('|', $path);
+      $path = implode('|', $path);
 
-        $regexp = '^(' . $path . ')(\/|\/.*|\/?\?.*|\/?#.*)?$';
+      $regexp = '^(' . $path . ')(\/|\/.*|\/?\?.*|\/?#.*)?$';
 
-        return $regexp;
+      return $regexp;
     }
 
     /**
@@ -469,58 +473,58 @@ TPL;
      */
     protected function normalizeHttpRequestPath($path)
     {
-        $path = trim($path);
+      $path = trim($path);
 
-        if (empty($path)) {
-            $path = '';
-        } else {
-            $path = '/' . trim($path, '\\/');
-        }
+      if (empty($path)) {
+        $path = '';
+      } else {
+        $path = '/' . trim($path, '\\/');
+      }
 
-        return $path;
+      return $path;
     }
 
     public function generateStorefrontCondition(Storefront $storefront)
     {
-        $condition = array();
+      $condition = array();
 
-        if ($storefront->http_host) {
-            $http_condition = array();
+      if ($storefront->http_host) {
+        $http_condition = array();
 
-            $http_condition[] = "req.http.host == \"{$storefront->http_host}\"";
+        $http_condition[] = "req.http.host == \"{$storefront->http_host}\"";
 
-            if (!empty($storefront->http_path)) {
-                $http_condition[] = "req.url ~ \"{$this->getHttpRequestPathMatchRegexp($storefront->http_path)}\"";
-            }
-
-            $condition[] = implode(' && ', $http_condition);
+        if (!empty($storefront->http_path)) {
+          $http_condition[] = "req.url ~ \"{$this->getHttpRequestPathMatchRegexp($storefront->http_path)}\"";
         }
 
-        if ($storefront->https_host) {
-            $https_condition = array();
+        $condition[] = implode(' && ', $http_condition);
+      }
 
-            $https_condition[] = "req.http.host == \"{$storefront->https_host}\"";
+      if ($storefront->https_host) {
+        $https_condition = array();
 
-            if (!empty($storefront->https_path)) {
-                $https_condition[] = "req.url ~ \"{$this->getHttpRequestPathMatchRegexp($storefront->https_path)}\"";
-            }
+        $https_condition[] = "req.http.host == \"{$storefront->https_host}\"";
 
-            $condition[] = implode(' && ', $https_condition);
+        if (!empty($storefront->https_path)) {
+          $https_condition[] = "req.url ~ \"{$this->getHttpRequestPathMatchRegexp($storefront->https_path)}\"";
         }
 
-
-        if (sizeof($condition) == 1) {
-            $condition = reset($condition);
-        } else {
-            $condition = array_map(function ($cond_part) {
-                return "({$cond_part})";
-            }, $condition);
-
-            $condition = implode(' || ', $condition);
-        }
+        $condition[] = implode(' && ', $https_condition);
+      }
 
 
-        $vcl = <<<VCL
+      if (sizeof($condition) == 1) {
+        $condition = reset($condition);
+      } else {
+        $condition = array_map(function ($cond_part) {
+          return "({$cond_part})";
+        }, $condition);
+
+        $condition = implode(' || ', $condition);
+      }
+
+
+      $vcl = <<<VCL
 if ({$condition}) {
     # Storefront with ID = {$storefront->id}
 
@@ -530,6 +534,6 @@ if ({$condition}) {
 }
 VCL;
 
-        return $vcl;
+      return $vcl;
     }
 }
