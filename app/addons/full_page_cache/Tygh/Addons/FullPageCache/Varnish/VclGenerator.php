@@ -245,7 +245,20 @@ backend default {
 ##                                                           ##
 ## Happens before we check if we have this in cache already. ##
 ###############################################################
+
+sub vcl_synth {
+    if (resp.status == 750) {
+        set resp.status = 301;
+        set resp.http.Location = "https://staging.bar-fridges-australia.com.au" + req.url;
+        return(deliver);
+    }
+}
+
 sub vcl_recv {
+
+    if ( (req.http.host ~ "^(?i)staging.bar-fridges-australia.com.au") && req.http.X-Forwarded-Proto !~ "(?i)https") {
+            return (synth(750, ""));
+    }
 
     # We do not support SPDY or HTTP/2.0
     if (req.method == "PRI") {
