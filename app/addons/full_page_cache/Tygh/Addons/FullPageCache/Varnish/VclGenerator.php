@@ -256,10 +256,6 @@ sub vcl_synth {
 
 sub vcl_recv {
 
-    if ( (req.http.host ~ "^(?i)staging.bar-fridges-australia.com.au") && req.http.X-Forwarded-Proto !~ "(?i)https") {
-            return (synth(750, ""));
-    }
-
     # We do not support SPDY or HTTP/2.0
     if (req.method == "PRI") {
         return (synth(405));
@@ -353,6 +349,10 @@ VCL;
                 unset req.http.Cookie;
             }
         }
+    }
+
+    if ( (req.http.host ~ "^(?i)staging.bar-fridges-australia.com.au") && req.http.X-Forwarded-Proto !~ "(?i)https") {
+            return (synth(750, ""));
     }
 
     return (hash);
