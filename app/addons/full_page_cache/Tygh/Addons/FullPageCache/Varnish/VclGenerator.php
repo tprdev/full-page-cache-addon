@@ -245,6 +245,15 @@ backend default {
 ##                                                           ##
 ## Happens before we check if we have this in cache already. ##
 ###############################################################
+
+sub vcl_synth {
+  if (resp.status == 750) {
+     set resp.status = 301;
+     set resp.http.Location = "https://www.bar-fridges-australia.com.au" + req.url;
+     return(deliver);
+  }
+}
+
 sub vcl_recv {
 
     # We do not support SPDY or HTTP/2.0
@@ -293,13 +302,13 @@ sub vcl_recv {
 TPL;
 
         if (!empty($this->skip_url_regexp_list)) {
-            $skip_url_pcre_cond = array();
-            foreach ($this->skip_url_regexp_list as $pcre) {
-                $skip_url_pcre_cond[] = 'req.url ~ "' . $pcre . '"';
-            }
+          $skip_url_pcre_cond = array();
+          foreach ($this->skip_url_regexp_list as $pcre) {
+            $skip_url_pcre_cond[] = 'req.url ~ "' . $pcre . '"';
+          }
 
-            $skip_url_pcre_cond = implode(" || ", $skip_url_pcre_cond);
-            $template .= <<<TPL
+          $skip_url_pcre_cond = implode(" || ", $skip_url_pcre_cond);
+          $template .= <<<TPL
 
     if ({$skip_url_pcre_cond}) {
         return (pass);
@@ -309,9 +318,9 @@ TPL;
         }
 
         if ($this->storefront instanceof Storefront) {
-            $storefront_condition = $this->generateStorefrontCondition($this->storefront);
+          $storefront_condition = $this->generateStorefrontCondition($this->storefront);
 
-            $template .= <<<VCL
+          $template .= <<<VCL
 
     # Check whether request was made to the only allowed storefront
     {$storefront_condition} else {
@@ -339,6 +348,10 @@ VCL;
                 unset req.http.Cookie;
             }
         }
+    }
+
+    if ( (req.http.host ~ "^(?i)www.bar-fridges-australia.com.au" || req.http.host ~ "^(?i)bar-fridges-australia.com.au")) && req.http.X-Forwarded-Proto !~ "(?i)https") {
+            return (synth(750, ""));
     }
 
     return (hash);
