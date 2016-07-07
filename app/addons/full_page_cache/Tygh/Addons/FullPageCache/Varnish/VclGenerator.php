@@ -350,7 +350,7 @@ VCL;
         }
     }
 
-    if ( (req.http.host ~ "^(?i)www.bar-fridges-australia.com.au" || req.http.host ~ "^(?i)bar-fridges-australia.com.au")) && req.http.X-Forwarded-Proto !~ "(?i)https") {
+    if ( (req.http.host ~ "^(?i)www.bar-fridges-australia.com.au" || req.http.host ~ "^(?i)bar-fridges-australia.com.au") && req.http.X-Forwarded-Proto !~ "(?i)https") {
             return (synth(750, ""));
     }
 
