@@ -38,7 +38,7 @@ $schema = array(
         'product_features.compare',
       ),
 
-    'disable_for_get_params' => array(
+    'disable_for_params' => array(
       'features_hash'
     ),
 
