@@ -36,6 +36,7 @@ $schema = array(
         'product_features.delete_product',
         'product_features.delete_feature',
         'product_features.compare',
+        'products.search'
       ),
 
     'disable_for_params' => array(
