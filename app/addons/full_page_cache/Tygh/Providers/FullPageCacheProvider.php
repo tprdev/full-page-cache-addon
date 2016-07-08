@@ -86,6 +86,7 @@ final class FullPageCacheProvider implements ServiceProviderInterface
             $generator->addNonCachedPaths($schema['disable_for_paths']);
             $generator->addNonCachedDispatches($schema['disable_for_dispatches']);
             $generator->addNonCachedExtensions($schema['disable_for_extensions']);
+            $generator->addNonCachedParams($schema['disable_for_params']);
             $generator->setStorefront($app['addons.full_page_cache.storefront']);
 
             return $generator;

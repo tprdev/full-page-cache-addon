@@ -18,7 +18,7 @@ $config = Registry::get('config');
 
 $schema = array(
     // TTL for objects at cache, seconds
-    'cache_ttl' => 90,
+    'cache_ttl' => 3600,
 
     // Which paths must not be cached at all
     'disable_for_paths' => array(
@@ -36,12 +36,15 @@ $schema = array(
         'product_features.delete_product',
         'product_features.delete_feature',
         'product_features.compare',
+      ),
+
+    'disable_for_get_params' => array(
+      'features_hash'
     ),
 
     // Which file extensions must not be cached at all
     'disable_for_extensions' => array(
         'ico', 'tiff', 'tif', 'bmp', 'ppm', 'pgm', 'xcf', 'psd', 'webp', 'svg',
-        'css', 'js',
         'txt',
         'woff', 'eot', 'otf', 'ttf',
         'zip', 'sql', 'tar', 'gz', 'tgz', 'bzip2', 'mp3', 'mp4', 'flv', 'ogg', 'swf',
