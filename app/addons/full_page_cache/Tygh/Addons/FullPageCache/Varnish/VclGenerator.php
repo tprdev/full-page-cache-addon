@@ -47,6 +47,8 @@ final class VclGenerator
 
     protected $non_cached_dispatches = array();
 
+    protected $non_cached_params = array();
+
     protected $non_cached_paths = array();
 
     protected $allowed_request_host_and_path_pairs = array();
@@ -144,6 +146,30 @@ final class VclGenerator
     /**
      * @return array
      */
+    public function getNonCachedParams()
+    {
+        return $this->non_cached_params;
+    }
+
+    /**
+     * @param array $non_cached_params
+     */
+    public function addNonCachedParams(array $non_cached_params)
+    {
+        $this->non_cached_params = array_merge($this->non_cached_params, $non_cached_params);
+    }
+
+    /**
+     * @param array $non_cached_params
+     */
+    public function setNonCachedParams(array $non_cached_params)
+    {
+        $this->non_cached_params = $non_cached_params;
+    }
+
+    /**
+     * @return array
+     */
     public function getNonCachedPaths()
     {
         return $this->non_cached_paths;
@@ -183,6 +209,12 @@ final class VclGenerator
         if (!empty($this->non_cached_extensions)) {
             $this->skipUrlMatchingRegexp(
                 '\.(' . implode('|', array_map('preg_quote', array_unique($this->non_cached_extensions))) . ')'
+            );
+        }
+
+        if (!empty($this->non_cached_params)) {
+            $this->skipUrlMatchingRegexp(
+                '(\?|&)(' . implode('|', array_map('preg_quote', array_unique($this->non_cached_params))) . ')'
             );
         }
 
