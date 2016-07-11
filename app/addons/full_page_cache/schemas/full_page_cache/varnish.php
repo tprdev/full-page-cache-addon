@@ -18,7 +18,7 @@ $config = Registry::get('config');
 
 $schema = array(
     // TTL for objects at cache, seconds
-    'cache_ttl' => 3600,
+    'cache_ttl' => 21600,
 
     // Which paths must not be cached at all
     'disable_for_paths' => array(
